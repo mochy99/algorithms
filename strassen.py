@@ -1,4 +1,3 @@
-
 Aa = [[4,5,2,5],
       [7,2,9,8],
       [22,5,8,6],
@@ -7,7 +6,8 @@ Ba = [[14,1,2,5],
       [7,12,7,7],
       [3,5,2,6],
       [4,6,3,9]]
-def trassen(X, Y):
+
+def strassen(X, Y):
     n = len(X[0])
     if (n == 1):
         result = [[X[0][0] * Y[0][0]]]
@@ -39,13 +39,13 @@ def trassen(X, Y):
 
 
     # the 7 products
-    P1 = trassen(A, sub(F, H))
-    P2 = trassen(add(A, B), H)
-    P3 = trassen(add(C, D), E)
-    P4 = trassen(D, sub(G, E))
-    P5 = trassen(add(A, D), add(E, H))
-    P6 = trassen(sub(B, D), add(G, H))
-    P7 = trassen(sub(A, C), add(E, F))
+    P1 = strassen(A, sub(F, H))
+    P2 = strassen(add(A, B), H)
+    P3 = strassen(add(C, D), E)
+    P4 = strassen(D, sub(G, E))
+    P5 = strassen(add(A, D), add(E, H))
+    P6 = strassen(sub(B, D), add(G, H))
+    P7 = strassen(sub(A, C), add(E, F))
 
     # return 4 sub matrix
     first = add(add(P5, P6), sub(P4, P2))
@@ -81,5 +81,5 @@ def sub (A, B):
         result.append(tem)
     return result
 
-print(trassen(Aa, Ba))
+print(strassen(Aa, Ba))
 
