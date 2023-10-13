@@ -26,4 +26,4 @@ def swap(input, start, end):
 
 input_list = [2, 3, 1, 5, 4]
 sorted_list = quickSort(input_list, 0, len(input_list) - 1)
-print(sorted_list)
+print(sorted_list)  
