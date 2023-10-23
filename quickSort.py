@@ -4,26 +4,23 @@ def quickSort(input, start, end):
     if start >= end:
         return input
 
-    input, i = swap(input, start, end)
+    i = swap(input, start, end)
     quickSort(input, start, i - 1)
-    quickSort(input, i + 1, end)
+    quickSort(input, i, end)
     return input
 
-def swap(input, start, end):
+def swap(array, start, end):
     k = random.randint(start, end - 1)
-    pivot = input[k]
-    input[start], input[k] = input[k], input[start]
-    i = start
-    j = start
-    while j < end:
-        if input[j] < pivot:
-            if i != start:
-                input[i + 1], input[j] = input[j], input[i + 1]
-            i = i + 1
-        j = j + 1
-    input[start], input[i] = input[i], input[start]
-    return input, i
+    pivot = array[k]
+    array[start], array[k] = array[k], array[start]
+    border = start + 1
+    for index in range (start + 1, end):
+        if array[index] < pivot:
+            array[border], array[index] = array[index], array[border]
+            border += 1
+    array[start], array[border -1] = array[border -1], array[start]
+    return border
 
-input_list = [2, 3, 1, 5, 4]
-sorted_list = quickSort(input_list, 0, len(input_list) - 1)
+input_list = [3,4,2,1]
+sorted_list = quickSort(input_list, 0, len(input_list))
 print(sorted_list)  
