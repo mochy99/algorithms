@@ -23,27 +23,25 @@ graphB = [
 def bfs(graph, start):
     queue = [start]
     explored = set()
-    currentVertex = queue.pop(0)
     layer ={start : 0}
     count = 0
     while queue:
-        if queue[0] not in explored:
-            currentLayer = layer.get(queue[0])
-
-            for i in range(len(graph)):
-                if queue[0] in graph[i]:
-                    next = graph[i][0] if graph[i][1] == queue[0] else graph[i][1]
+        currentVertex = queue.pop(0)
+        currentLayer = layer.get(currentVertex)
+        
+        count = currentLayer
+        if currentVertex not in explored:
+            explored.add(currentVertex)
+            
+            for edge in graph:
+                if currentVertex in edge:
+                    next = edge[0] if edge[1] == currentVertex else edge[1]
                     if next not in explored:
                         queue.append(next)
                         if next in layer:
                             layer[next] = min(currentLayer + 1, layer[next])
                         else:
-                            layer[next] = currentLayer + 1
-                            count = currentLayer + 1 
-            explored.append(queue[0])
-            queue.pop(0)   
-        else:
-            queue.pop(0)
+                            layer[next] = currentLayer + 1    
     return count
 
-print(bfs(graphB, "A"))
+print(bfs(graphA, "s"))
