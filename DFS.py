@@ -37,6 +37,19 @@ graphC = [
     ["M", "N"],
     ["N", "L"]
 ]
+graphD = [
+    [1,7],
+    [7,4],
+    [7,9],
+    [4,1],
+    [6,8],
+    [9,6],
+    [6,3],
+    [3,9],
+    [5,8],
+    [2,5],
+    [8,2]
+]
 
 def listNode(graph, start):
     listNode = [start]
@@ -77,8 +90,12 @@ def topologicalSort(graph, start):
     return order
 
 def kosaraju(graph,start):
+    graphRev = []
+    for edge in graph:
+        graphRev.append([edge[1], edge[0]])
     nodes, outgoing = listNode(graph, start)
-    rev = topologicalSort(graph,start)
+    rev = topologicalSort(graphRev,start)
+    print(rev)
     explored = []
     numSCC = 0
     def dfsSCC (graph, start):
@@ -89,10 +106,12 @@ def kosaraju(graph,start):
                 if vertex not in explored:
                     dfsSCC(graph, vertex)
 
-    for vertex in rev:
+    for i in range(len(rev) - 1, -1, -1):
+        vertex = rev[i]
         if vertex not in explored:
             numSCC += 1
             dfsSCC(graph, vertex)
+            print(explored)
     return numSCC      
 
-print(kosaraju(graphC, "A"))
+print(kosaraju(graphD, 1))
