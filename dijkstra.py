@@ -4,6 +4,14 @@ graphA = {
     'C': [('D', 3)],
     'D': [('E', 5)],
 }
+graphB = {'A': [('B', 2), ('H', 2)],
+ 'B': [('A', 1), ('C', 1)],
+ 'C': [('B', 1), ('D', 1)],
+ 'D': [('C', 1), ('E', 1)],
+ 'E': [('D', 1), ('F', 1)],
+ 'F': [('E', 1), ('G', 1)],
+ 'G': [('F', 1), ('H', 1)],
+ 'H': [('G', 1), ('A', 2)]}
 #input: graph includes the path from start vertex to end vertex
 #output: 
 def dijkstra(graph, start, end):
@@ -26,6 +34,12 @@ def dijkstra(graph, start, end):
 
     return track[end]
 
-
-print(dijkstra(graphA, "A", "D"))
+def test(order, input, start, end, output):
+    expect_output = dijkstra(input, start, end)
+    if expect_output == output:
+        return "Test " + str(order) + " passed"
+    else:
+        return "Test " + str(order) + " failed"
+print(test(1, graphA, "A", "B", 2))
+print(test(2, graphB, "A", "H", 3))
 
