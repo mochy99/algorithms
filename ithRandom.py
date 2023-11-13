@@ -1,4 +1,6 @@
 import random
+from convertArray import convertArray #input file.text #output array
+from test import test
 def randomSelection(array, i):
     def selection(array, start, end, i):
         if start + 1 == end:
@@ -9,10 +11,8 @@ def randomSelection(array, i):
             return array[border -1]
         elif border < i:
             return selection(array, border, end, i)
-        
         else:
             return selection(array, start, border - 1, i)
-
     
     def swap(array, start, end, i):
         k = random.randint(start, end -1)
@@ -29,7 +29,9 @@ def randomSelection(array, i):
         
     return selection(array, 0, len(array), i)
 
-
-input_list = [2, 3, 1, 5, 4, 6, 9, 8, 7]
-ithElement = randomSelection(input_list, 9)
-print(ithElement) 
+testCase1 = convertArray("testCase/random1.txt")
+testCase2 = convertArray("testCase/random2.txt")
+case1 = randomSelection(testCase1, 5)
+case2 = randomSelection(testCase2, 50)
+print(test(1, case1, 5469)) 
+print(test(2, case2, 4715)) 
