@@ -1,12 +1,10 @@
 from convertArray import convertArray #input file.text #output array
-from heap import low_heapify, high_heapify #input array already added new element #output heap with proper invariant
-from extractMin import extractMin
+from heap import low_heapify, high_heapify, extractMax, extractMin #input array already added new element #output heap with proper invariant
+from test import test
 
-
-input_data = convertArray("textMedianMaintainance.txt")
 prev = None
-hLow, hHight = [], []
-def medMaintain(array, k):
+hLow, hHigh = [], []
+def computeMed(array, k):
     array.append(k)
     global prev
     if not prev:
@@ -17,35 +15,39 @@ def medMaintain(array, k):
             hLow.append(k)
             high_heapify(hLow)
         else:
-            hHight.append(k)
-            low_heapify(hHight)
+            hHigh.append(k)
+            low_heapify(hHigh)
     
-    if len(hLow) - len(hHight) > 1:
-        newVal = extractMin(hLow)
-        hHight.append(newVal)
-        low_heapify(hHight)
-    elif len(hHight) - len(hLow) > 1:
-        newVal = extractMin(hHight)
+    if len(hLow) - len(hHigh) > 1:
+        newVal = extractMax(hLow)
+        hHigh.append(newVal)
+        low_heapify(hHigh)
+    elif len(hHigh) - len(hLow) > 1:
+        newVal = extractMin(hHigh)
         hLow.append(newVal)
         high_heapify(hLow)
-    print(hLow)
-    print(hHight)
     med = None
     if len(array) % 2 == 0:
-        med = (hHight[0] + hLow[0]) / 2
+        med = hLow[0]
     else:
-        if len(hHight) > len(hLow):
-            med = hHight[0]
+        if len(hHigh) > len(hLow):
+            med = hHigh[0]
         else:
             med = hLow[0]
 
     prev = med
+    return med
+def medMaintain(input):
+    array = []
+    sum = 0
+    for num in input:
+        med = computeMed(array, num)
+        sum += med
+    result = sum % 10000
+    return int(result)
 
-print(medMaintain([], 1))
-print(medMaintain([1], 0))
-print(medMaintain([1,0], -2))
-print(medMaintain([1,0, -2], 5))
-print(medMaintain([1,0, -2,5], 8))
-print(medMaintain([1,0, -2,5,8], 11))
+testCase1 = convertArray("testCase/textMedianMaintainance.txt")
+case1 = medMaintain(testCase1)
+print(test(1, case1, 9335))
 
 
