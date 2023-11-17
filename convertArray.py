@@ -50,5 +50,5 @@ def convertUndirectedGraph(fileName):
         else:
             setEdges.get(sPoint).append((fPoint,weight))
     return setVertices, setEdges
-print(convertUndirectedGraph('testCase/mst.txt'))
+
 
