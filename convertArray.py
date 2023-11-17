@@ -32,4 +32,23 @@ def convertSchedule(fileName):
 
     return output_dict
 
+def convertUndirectedGraph(fileName):
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+    setVertices = set()
+    setEdges = {}
+    for line in lines:
+        fPoint, sPoint, weight = map(int, line.split())
+        if fPoint not in setVertices:
+            setVertices.add(fPoint)
+            setEdges[fPoint] = [(sPoint, weight)]
+        else:
+            setEdges.get(fPoint).append((sPoint,weight))
+        if sPoint not in setVertices:
+            setVertices.add(sPoint)
+            setEdges[sPoint] = [(fPoint, weight)]
+        else:
+            setEdges.get(sPoint).append((fPoint,weight))
+    return setVertices, setEdges
+print(convertUndirectedGraph('testCase/mst.txt'))
 
