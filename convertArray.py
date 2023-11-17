@@ -10,3 +10,24 @@ def convertArray(fileName):
     data_list = [float(line.strip()) for line in lines]
 
     return data_list
+
+def convertSchedule(fileName):
+    # Read data from the file
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+
+    job_details = []
+
+    # Extract details for each job
+    for i in range(1, len(lines)):
+        line = lines[i]
+        if line:
+            weight, length = map(int, line.split())
+            job_details.append((weight, length))
+    
+    # Create the dictionary
+    output_dict = {"numofjob": lines[0], "details": job_details}
+
+    return output_dict
+print(convertSchedule('testCase/schedule.txt'))
+
