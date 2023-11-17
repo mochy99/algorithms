@@ -26,8 +26,10 @@ def convertSchedule(fileName):
             job_details.append((weight, length))
     
     # Create the dictionary
-    output_dict = {"numofjob": lines[0], "details": job_details}
+    output_dict = {}
+    output_dict["numofjob"] = lines[0].split()
+    output_dict["details"] = job_details
 
     return output_dict
-print(convertSchedule('testCase/schedule.txt'))
+
 
