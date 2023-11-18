@@ -32,7 +32,7 @@ def high_heapify(array):
 heap = [5, 6, 8, 9, 7]
 def extractMin(arr):
     result = arr[0]
-    arr[0] = arr.pop(len(arr)-1)
+    arr[0] = arr.pop()
     n = len(arr)
     self = 0
     l = (self + 1) * 2 - 1
@@ -49,7 +49,7 @@ def extractMin(arr):
     return result
 def extractMax(arr):
     result = arr[0]
-    arr[0] = arr.pop(len(arr)-1)
+    arr[0] = arr.pop()
     n = len(arr)
     self = 0
     l = (self + 1) * 2 - 1
@@ -65,4 +65,51 @@ def extractMax(arr):
         r = (self + 1) * 2 
     return result
 
+#------------------------------
+# handle with pair (key, value)
+exp = [(5, 0), (6, 1), (2, 3), (4, 5), (5, 9)]
+def pairHeapify(array):
+    n = len(array)
+    child = n - 1
+    parent = (child + 1) // 2 - 1
+    while array[parent][1] > array[child][1]:
+        array[parent], array[child] = array[child], array[parent]
+        if parent > 0:
+            child = parent
+            parent = (child + 1) // 2 - 1
 
+
+def pairExtractMin(array):
+    minResult = array[0]
+    array[0] = array.pop()
+    n = len(array)
+    parent  = 0
+    l, r = (parent + 1 ) * 2 - 1, (parent + 1) * 2
+    while l < n and r < n and (array[parent][1] > array[l][1] or array[parent][1] > array[r][1]):
+        if array[parent][1] > array[l][1]:
+            array[parent], array[l] = array[l], array[parent]
+            parent = l
+        else:
+            array[parent], array[r] = array[r], array[parent]
+            parent = r
+        l, r = (parent + 1 ) * 2 - 1, (parent + 1) * 2
+    return minResult
+
+def pairDelete(array, item):
+    for i in range(len(array)):
+        key = array[i][0]
+        if key == item:
+            global parent
+            parent = i
+            break
+    array[parent] = array.pop()
+    n = len(array)
+    l, r = (parent + 1 ) * 2 - 1, (parent + 1) * 2
+    while l < n and r < n and (array[parent][1] > array[l][1] or array[parent][1] > array[r][1]):
+        if array[parent][1] > array[l][1]:
+            array[parent], array[l] = array[l], array[parent]
+            parent = l
+        else:
+            array[parent], array[r] = array[r], array[parent]
+            parent = r
+        l, r = (parent + 1 ) * 2 - 1, (parent + 1) * 2
