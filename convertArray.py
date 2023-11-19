@@ -31,6 +31,17 @@ def convertSchedule(fileName):
     output_dict["details"] = job_details
 
     return output_dict
+def convertSetEdges(fileName):
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+    setVetices, setEdges, setWeight = set(),[], []
+    for line in lines:
+        setEdges.append(line.split())
+        node, aNode, weight = map(int, line.split())
+        setWeight.append(weight)
+        setVetices.add(node)
+        setVetices.add(aNode)
+    return setVetices, setEdges, setWeight
 
 def convertUndirectedGraph(fileName):
     with open(fileName, 'r') as file:
