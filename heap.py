@@ -67,20 +67,23 @@ def extractMax(arr):
 
 #------------------------------
 # handle with pair (key, value)
-exp = [(5, 0), (6, 1), (2, 3), (4, 5), (5, 9)]
+exp = [(5, 0), ]
 def pairHeapify(array):
     n = len(array)
-    child = n - 1
-    parent = (child + 1) // 2 - 1
-    while array[parent][1] > array[child][1]:
-        array[parent], array[child] = array[child], array[parent]
-        if parent > 0:
-            child = parent
-            parent = (child + 1) // 2 - 1
+    if n > 1:
+        child = n - 1
+        parent = (child + 1) // 2 - 1
+        while array[parent][1] > array[child][1]:
+            array[parent], array[child] = array[child], array[parent]
+            if parent > 0:
+                child = parent
+                parent = (child + 1) // 2 - 1
 
 
 def pairExtractMin(array):
     minResult = array[0]
+    if len(array) == 1:
+        return minResult
     array[0] = array.pop()
     n = len(array)
     parent  = 0
@@ -96,20 +99,30 @@ def pairExtractMin(array):
     return minResult
 
 def pairDelete(array, item):
+    global parent, result
+    parent = None
+    result = None
     for i in range(len(array)):
         key = array[i][0]
         if key == item:
-            global parent
             parent = i
+            result = array[i][1]
             break
-    array[parent] = array.pop()
-    n = len(array)
-    l, r = (parent + 1 ) * 2 - 1, (parent + 1) * 2
-    while l < n and r < n and (array[parent][1] > array[l][1] or array[parent][1] > array[r][1]):
-        if array[parent][1] > array[l][1]:
-            array[parent], array[l] = array[l], array[parent]
-            parent = l
+       
+    if parent is not None:
+        if parent == len(array) - 1 or len(array) == 1:
+            array.pop()   
         else:
-            array[parent], array[r] = array[r], array[parent]
-            parent = r
-        l, r = (parent + 1 ) * 2 - 1, (parent + 1) * 2
+            array[parent] = array.pop()
+            n = len(array)
+            l, r = (parent + 1 ) * 2 - 1, (parent + 1) * 2
+            while l < n and r < n and (array[parent][1] > array[l][1] or array[parent][1] > array[r][1]):
+                if array[parent][1] > array[l][1]:
+                    array[parent], array[l] = array[l], array[parent]
+                    parent = l
+                else:
+                    array[parent], array[r] = array[r], array[parent]
+                    parent = r
+                l, r = (parent + 1 ) * 2 - 1, (parent + 1) * 2
+        return result
+
