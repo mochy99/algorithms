@@ -1,15 +1,32 @@
 def convertArray(fileName):
-    # Specify the path to your text file
-    file_path = fileName
-
     # Read data from the file
-    with open(file_path, 'r') as file:
+    with open(fileName, 'r') as file:
         lines = file.readlines()
 
     # Convert data to a list of floats
     data_list = [float(line.strip()) for line in lines]
 
     return data_list
+
+def convertIntArray(fileName):
+    # Read the content of the file
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+    data_list = []
+    leader, rank = [], []
+    dicEdge = {}
+    # Convert data to a list of floats
+    for i in range(len(lines)):
+        line = lines[i]
+        leader.append(i)
+        rank.append(0)
+        value = int(line.strip().replace(" ",""))
+        data_list.append(value)
+        if dicEdge.get(value):
+            dicEdge[value].add(i)
+        else:
+            dicEdge[value] = {i}
+    return data_list, dicEdge, leader, rank
 
 def convertSchedule(fileName):
     # Read data from the file
@@ -61,5 +78,20 @@ def convertUndirectedGraph(fileName):
         else:
             setEdges.get(sPoint).append((fPoint,weight))
     return setVertices, setEdges
+
+# .txt -> ListNodeTree, P(a),  HeapP(a)
+from heap import pairHeapify 
+def convertHuffMan(fileName):
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+    Tree, Pa, HeapPa = set(), {}, [] #set, dic ,array
+    for i in range(1,len(lines)):
+        Tree.add(i)
+        prob = int(lines[i].strip())
+        Pa[i] = prob
+        HeapPa.append((i,prob))
+        pairHeapify(HeapPa)
+    return Tree, Pa, HeapPa
+print(convertHuffMan('testCase/huffman1.txt'))
 
 
