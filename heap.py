@@ -88,8 +88,10 @@ def pairExtractMin(array):
     n = len(array)
     parent  = 0
     l, r = (parent + 1 ) * 2 - 1, (parent + 1) * 2
+    if len(array) == 2 and array[parent][1] > array[l][1]:
+        array[parent], array[l] = array[l], array[parent]
     while l < n and r < n and (array[parent][1] > array[l][1] or array[parent][1] > array[r][1]):
-        if array[parent][1] > array[l][1]:
+        if array[l][1] < array[r][1]:
             array[parent], array[l] = array[l], array[parent]
             parent = l
         else:
