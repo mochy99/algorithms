@@ -20,10 +20,6 @@ def k_clurering(fileName, k):
                 union(leader, rank, int(fNode), int(sNode))
         else:
             if fParent != sParent:  
-                print(setEdges)
-                print(leader)
-                print(rank)
-                print(cost)
                 return int(cost)
     
 def find(leader,node):
