@@ -4,11 +4,11 @@ def convertArray(fileName):
         lines = file.readlines()
 
     # Convert data to a list of floats
-    data_list = [float(line.strip()) for line in lines]
+    data_list = [int(line.strip()) for line in lines]
 
     return data_list
 
-def convertIntArray(fileName):
+def convertStrArray(fileName):
     # Read the content of the file
     with open(fileName, 'r') as file:
         lines = file.readlines()
@@ -20,12 +20,13 @@ def convertIntArray(fileName):
         line = lines[i]
         leader.append(i)
         rank.append(0)
-        value = int(line.strip().replace(" ",""))
-        data_list.append(value)
-        if dicEdge.get(value):
-            dicEdge[value].add(i)
-        else:
-            dicEdge[value] = {i}
+        if i > 0:
+            value = str(line.strip().replace(" ",""))
+            data_list.append(value)
+            if dicEdge.get(value):
+                dicEdge[value].append(i)
+            else:
+                dicEdge[value] = [i]
     return data_list, dicEdge, leader, rank
 
 def convertSchedule(fileName):
@@ -84,14 +85,14 @@ from heap import pairHeapify
 def convertHuffMan(fileName):
     with open(fileName, 'r') as file:
         lines = file.readlines()
-    Tree, Pa, HeapPa = set(), {}, [] #set, dic ,array
+    Tree, HeapPa, Deep = set(), [], {} #set, array, dic
     for i in range(1,len(lines)):
         Tree.add(i)
         prob = int(lines[i].strip())
-        Pa[i] = prob
+        
+        Deep[i] = (0,0)
         HeapPa.append((i,prob))
         pairHeapify(HeapPa)
-    return Tree, Pa, HeapPa
-print(convertHuffMan('testCase/huffman1.txt'))
+    return Tree, HeapPa, Deep
 
 
