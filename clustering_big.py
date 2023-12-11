@@ -2,44 +2,54 @@ from convertArray import convertStrArray
 from merge_sort import parallelMergeSort
 from test import test
 
-collection, leader, rank = [], [None], [None]
-def hamming_distance(str1, str2):
+toggle = {"1": "0", "0": "1"}   
 
-    return sum(bit1 != bit2 for bit1, bit2 in zip(str1, str2))
-
-def find_pairs_with_hamming_distance_less_than_2(strings):
-    collection, leader, rank = [], [None], [None]
-    n = len(strings)
-    collection0, collection1, collection2 = [], [], []
-    for i in range(1,n):
-        leader.append(i)
-        rank.append(0)
-        for j in range(i + 1, n):
-            distance = hamming_distance(strings[i], strings[j])
-            if distance == 0:
-                collection0.append((i, j, distance))
-            elif distance == 1:
-                collection1.append((i, j, distance))
-            elif distance == 2:
-                collection2.append((i, j, distance))
-    
-    collection.extend(item for item in collection0)
-    collection.extend(item for item in collection1)
-    collection.extend(item for item in collection2)
-    return collection, leader, rank 
-
-def find_k(input):
+def find_k(fileName):
     # Initialize
-    collection, leader, rank = find_pairs_with_hamming_distance_less_than_2(convertStrArray(input))
+    strs, dicEdge, leader, rank = convertStrArray(fileName)
+    n = len(dicEdge)
     k = len(leader) - 1
-    for fNode, sNode, weight in collection:
+
+    def join(fNode, sNode):
         fParent, sParent = find(leader, int(fNode)), find(leader, int(sNode))
-        
+        nonlocal k
         if k > 0:
             if fParent != sParent:
-                k -= 1  
+                k -= 1
                 union(leader, rank, int(fNode), int(sNode))
 
+    # Distance = 0
+    for key in dicEdge:
+        collectionNode = dicEdge[key]
+        for i in range(len(collectionNode)):
+            for j in range(i + 1, len(collectionNode)):
+                join(collectionNode[i], collectionNode[j])
+
+    # Distance = 1
+    for key in dicEdge:
+        collectionNode = dicEdge[key]
+        for i in range(len(key)):
+            toggled_value = key[:i] + toggle[key[i]] + key[i+1 :]
+            if dicEdge.get(toggled_value):
+                secondCollectionNode = dicEdge[toggled_value]
+        
+                for i in range(len(collectionNode)):
+                    for j in range(len(secondCollectionNode)):
+                        join(collectionNode[i], secondCollectionNode[j])
+
+    # Distance = 2
+    for key in dicEdge:
+        collectionNode = dicEdge[key]
+        for i in range(len(key)):
+            for j in range(i+1, len(key)):
+                new_value = key[:i] + toggle[key[i]] + key[ i+1 : j] + toggle[key[j]] + key[ j+1 :]
+            
+                if dicEdge.get(new_value):
+                    secondCollectionNode = dicEdge.get(new_value)
+                    for i in range(len(collectionNode)):
+                        for j in range(len(secondCollectionNode)):
+                            join(collectionNode[i], secondCollectionNode[j])
+    print(k)
     return k
 
 def find(leader,node):
@@ -62,9 +72,14 @@ def union(leader, rank, fNode, sNode):
         leader[fNode] = sParent
 
 # Example usage
-testcase = find_k('testCase/clustering_big1.txt')
-print(test(1, testcase, 3))
-testcase1 = find_k('testCase/clustering_big2.txt')
-print(test(2, testcase1, 2))
-ans = find_k('testCase/problem_2_week_2.txt')
+
+# testcase = find_k('testCase/clustering_big1.txt')
+# print(test(1, testcase, 3))
+# testcase1 = find_k('testCase/clustering_big2.txt')
+# print(test(2, testcase1, 2))
+ans = find_k('problem_set/course3/problem_2_week_2.txt')
 print(ans)
+
+
+
+
