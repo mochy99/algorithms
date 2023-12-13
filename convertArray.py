@@ -95,4 +95,13 @@ def convertHuffMan(fileName):
         pairHeapify(HeapPa)
     return Tree, HeapPa, Deep
 
+def convertKnapSack(fileName):
+    with open(fileName, "r") as file:
+        lines = file.readlines()
+    data = []
+    for i in range(1, len(lines)):
+        value, size = map(int, lines[i].split())
+        data.append((value,size))
+    return data
+
 
