@@ -49,7 +49,6 @@ def find_k(fileName):
                     for i in range(len(collectionNode)):
                         for j in range(len(secondCollectionNode)):
                             join(collectionNode[i], secondCollectionNode[j])
-    print(k)
     return k
 
 def find(leader,node):
