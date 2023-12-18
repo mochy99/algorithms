@@ -38,8 +38,10 @@ def floydMarshall(fileName):
 
 
 testCase1 = floydMarshall("testCase/apsp1.txt")
-testCase2 = floydMarshall("testCase/apsp2.txt")
+# testCase2 = floydMarshall("testCase/apsp2.txt")
 print(test(1, testCase1, -2))
-print(test(2, testCase2, "Negative cycle"))
-# print(floydMarshall("problem_set/course4/g1week1.txt"))
-
+# print(test(2, testCase2, "Negative cycle"))
+# print(floydMarshall("problem_set/course4/g1week1.txt")) #ans: negative cycle
+# print(floydMarshall("problem_set/course4/g2week1.txt")) #ans: negative cycle
+# print(floydMarshall("problem_set/course4/g3week1.txt")) #ans:-19
+# print(floydMarshall("problem_set/course4/g4week1.txt")) 
