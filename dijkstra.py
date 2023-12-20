@@ -31,7 +31,7 @@ def dijkstra(graph, start, end):
 
         visited.append(next_node)
         track[next_node] = minLen
-
+    print(track)
     return track[end]
 
 def test(order, input, start, end, output):
@@ -41,5 +41,5 @@ def test(order, input, start, end, output):
     else:
         return "Test " + str(order) + " failed"
 print(test(1, graphA, "A", "B", 2))
-print(test(2, graphB, "A", "H", 3))
+print(test(2, graphB, "A", "H", 2))
 
