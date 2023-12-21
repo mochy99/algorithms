@@ -54,12 +54,26 @@ def convertSetEdges(fileName):
         lines = file.readlines()
     setVetices, setEdges, setWeight = set(),[], []
     for line in lines:
-        setEdges.append(line.split())
         node, aNode, weight = map(int, line.split())
+        setEdges.append((node, aNode, weight))
         setWeight.append(weight)
         setVetices.add(node)
         setVetices.add(aNode)
     return setVetices, setEdges, setWeight
+
+def convertDirectedGraph(fileName):
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+    setVetices, setEdges = set(),{}
+    for line in lines:
+        node, aNode, weight = map(int, line.split())
+        if node in setEdges :
+            setEdges[node].append((aNode, weight))
+        else:
+            setEdges[node] = [(aNode, weight)]
+        setVetices.add(node)
+        setVetices.add(aNode)
+    return setVetices, setEdges
 
 def convertUndirectedGraph(fileName):
     with open(fileName, 'r') as file:
