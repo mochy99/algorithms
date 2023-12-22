@@ -52,39 +52,37 @@ def johnson(fileName):
 
     if bellman == "A negative cycle":
         return bellman
-    # Recalculate weight:
-    for tail in setEdges:
-        newEdges=[]
-        for head, weight in setEdges[tail]:
-            newEdges.append((head, weight + bellman[tail] - bellman[head]))
-        setEdges[tail] = newEdges
-    # Run Dijkstra algorithm
-    for start in setVertices:
-        # Initialize
-        visited = [start]
-        track = {start: 0}
-        minArc = []
-        for head, weight in setEdges[start]:
-            minArc.append((head,weight))
-            pairHeapify(minArc)
+    # # Recalculate weight:
+    # for tail in setEdges:
+    #     newEdges=[]
+    #     for head, weight in setEdges[tail]:
+    #         newEdges.append((head, weight + bellman[tail] - bellman[head]))
+    #     setEdges[tail] = newEdges
+    # # Run Dijkstra algorithm
+    # for start in setVertices:
+    #     # Initialize
+    #     visited = [start]
+    #     track = {start: 0}
+    #     heap = []
+    #     headOfStart = set()
+    #     for head, weight in setEdges[start]:
+    #         heap.append((head,weight))
+    #         pairHeapify(heap)
+    #         headOfStart.add(head)
+
+    #     for vertex in setVertices:
+    #         if vertex not in headOfStart and vertex != 0 and vertex != start:
+    #             heap.append((vertex,sys.maxsize))
             
-        while len(visited) < len(setVertices):
-            minLen = sys.maxsize
-            next_node = None
-            for vertex in visited:
-                listEdges = setEdges[vertex]
-                for neighbor, weight in listEdges:
-                    if neighbor not in visited:
-                        curLen = track[vertex] + weight
-                        if ( curLen < minLen ):
-                            minLen = curLen
-                            next_node = neighbor       
-                            actualLen = curLen - bellman[vertex] + bellman[neighbor]
-                            result = min(actualLen, result)
-            visited.append(next_node)
-            track[next_node] = minLen
-    return result
-testCase1 = johnson("testCase/apsp1.txt")
-testCase2 = johnson("testCase/apsp2.txt")
-print(test(1, testCase1, -2))
-print(test(2, testCase2, "A negative cycle"))
+    #     while heap:
+    #         nextNode, minLen = pairExtractMin(heap)
+    #         visited.append(nextNode)
+    #         track[nextNode] = minLen
+    #         result = min(minLen, result)
+    # return result
+
+# testCase1 = johnson("testCase/apsp1.txt")
+# testCase2 = johnson("testCase/apsp2.txt")
+# print(test(1, testCase1, -2))
+# print(test(2, testCase2, "A negative cycle"))
+print(johnson("problem_set/course4/g4week1.txt")) 
