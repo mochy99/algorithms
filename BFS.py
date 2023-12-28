@@ -28,11 +28,9 @@ def bfs(graph, start):
     while queue:
         currentVertex = queue.pop(0)
         currentLayer = layer.get(currentVertex)
-        
         count = currentLayer
         if currentVertex not in explored:
             explored.add(currentVertex)
-            
             for edge in graph:
                 if currentVertex in edge:
                     next = edge[0] if edge[1] == currentVertex else edge[1]
@@ -44,4 +42,4 @@ def bfs(graph, start):
                             layer[next] = currentLayer + 1    
     return count
 
-print(bfs(graphA, "s"))
+print(bfs(graphB, "A"))
