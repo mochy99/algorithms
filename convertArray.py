@@ -119,3 +119,13 @@ def convertKnapSack(fileName):
     return data
 
 
+def convertTsp(fileName):
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+
+    data = []
+    for line in lines:
+        x, y = map(float, line.split())
+        data.append((x, y))
+
+    return data
