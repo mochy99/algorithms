@@ -32,7 +32,7 @@ def tsp(fileName):
    
     
     # Generate all subsets having size greater than 1
-    for i in range(2**n + 1):
+    for i in range(2**n):
         current_subset = set()  
         for j in range(n):
             if (i & (1 << j)) > 0:
@@ -49,9 +49,9 @@ def tsp(fileName):
         distance =  Euclidean(i,j)
         prev[curSet] = [sys.maxsize] * (n+1)
         if i == 1:
-            prev[curSet][j] = (distance, j)
+            prev[curSet][j] = distance
         else:
-            prev[curSet][i] = (distance, j)
+            prev[curSet][i] = distance
     
     # Systematically solve all subproblems
     for size in range(3, n+1):
@@ -66,21 +66,16 @@ def tsp(fileName):
                     for k in curSet:
                         if k != 1 and k != j:
                             subSetNotj = toStringNotIncludedJ(curSet, j)
-                            distance, subset = prev[subSetNotj][k]
-                            curMin = min(curMin, distance + Euclidean(k,j))
-                            newPath = subset = str(k)
-                            tem[toString(curSet)][j] = (curMin, newPath)
+                            curMin = min(curMin, prev[subSetNotj][k] + Euclidean(k,j))
+                    tem[toString(curSet)][j] = curMin
         prev = {}
         prev = tem
-    tour = ''
     for i in range(2, len(prev[lastRound])):
-        value, path = prev[lastRound][i]
-        if value + Euclidean(1,i) < result:
-            result = value + Euclidean(1,i)
-            tour = path
+        value = prev[lastRound][i]
+        result = min(result, value + Euclidean(1,i))
 
     
-    return result, tour
+    return result
 
                             
 
