@@ -83,10 +83,7 @@ def tsp(fileName):
     
     return result, path
 
-                         
 
-
-
-print(tsp('problem_set/course4/tsp.txt'))
+print(tsp('problem_set/course4/tsp.txt')) #ans : (26314.87732555545, '591011141817212220161924231513128623741')
 # print(tsp('testCase/tsp.txt'))
 
