@@ -123,9 +123,11 @@ def convertTsp(fileName):
     with open(fileName, 'r') as file:
         lines = file.readlines()
 
-    data = []
-    for line in lines:
-        x, y = map(float, line.split())
-        data.append((x, y))
+    data, setVertices = {}, []
+    for i in range(len(lines)):
+        if i > 0:
+            x, y = map(float, lines[i].split())
+            data[i] = (x,y)
+            setVertices.append(i)
 
-    return data
+    return setVertices, data
