@@ -6,7 +6,7 @@ def tsp(fileName):
     # Declare variables
     setVertices, data = convertTsp(fileName)
     lastRound = ''
-    result = sys.maxsize
+    result, path = sys.maxsize, ''
     n = len(data)
     subset = {}
     prev = {}
@@ -33,10 +33,10 @@ def tsp(fileName):
     
     # Generate all subsets having size greater than 1
     for i in range(2**n):
-        current_subset = set()  
+        current_subset = []
         for j in range(n):
             if (i & (1 << j)) > 0:
-                current_subset.add(setVertices[j])
+                current_subset.append(setVertices[j])
         if len(current_subset) > 1: # Only need subset having size greater than 1
             if 1 in current_subset: # Only need subset including 1
                 size = len(current_subset)
@@ -49,9 +49,9 @@ def tsp(fileName):
         distance =  Euclidean(i,j)
         prev[curSet] = [sys.maxsize] * (n+1)
         if i == 1:
-            prev[curSet][j] = distance
+            prev[curSet][j] = (distance, str(j))
         else:
-            prev[curSet][i] = distance
+            prev[curSet][i] = (distance, str(i))
     
     # Systematically solve all subproblems
     for size in range(3, n+1):
@@ -66,16 +66,21 @@ def tsp(fileName):
                     for k in curSet:
                         if k != 1 and k != j:
                             subSetNotj = toStringNotIncludedJ(curSet, j)
-                            curMin = min(curMin, prev[subSetNotj][k] + Euclidean(k,j))
-                    tem[toString(curSet)][j] = curMin
+                            curValue, path = prev[subSetNotj][k]
+                            if curValue < curMin:
+                                curMin =  curValue + Euclidean(k,j)
+                                tem[toString(curSet)][j] = (curMin, path + str(j))
         prev = {}
         prev = tem
-    for i in range(2, len(prev[lastRound])):
-        value = prev[lastRound][i]
-        result = min(result, value + Euclidean(1,i))
 
+    for i in range(2, len(prev[lastRound])):
+        value, curPath = prev[lastRound][i]
+        newValue = value + Euclidean(1,i)
+        if newValue < result:
+            result = newValue
+            path = curPath + str(1) 
     
-    return result
+    return result, path
 
                             
 
