@@ -17,7 +17,8 @@ def tsp(fileName):
     def Euclidean(i,j):
         xi, yi = data[i]
         xj, yj = data[j]
-        return math.sqrt((xj - xi)**2 + (yj - yi)**2)
+        distance = math.sqrt((xj - xi)**2 + (yj - yi)**2)
+        return distance
     def toString(subSet):
         string = ''
         for item in subSet:
@@ -67,7 +68,7 @@ def tsp(fileName):
                         if k != 1 and k != j:
                             subSetNotj = toStringNotIncludedJ(curSet, j)
                             curValue, path = prev[subSetNotj][k]
-                            if curValue < curMin:
+                            if curValue + Euclidean(k,j) < curMin:
                                 curMin =  curValue + Euclidean(k,j)
                                 tem[toString(curSet)][j] = (curMin, path + str(j))
         prev = {}
@@ -82,10 +83,10 @@ def tsp(fileName):
     
     return result, path
 
-                            
+                         
 
 
 
-# print(tsp('problem_set/course4/tsp.txt'))
-print(tsp('testCase/tsp.txt'))
+print(tsp('problem_set/course4/tsp.txt'))
+# print(tsp('testCase/tsp.txt'))
 
