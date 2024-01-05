@@ -46,8 +46,9 @@ def medMaintain(input):
     result = sum % 10000
     return int(result)
 
-testCase1 = convertArray("testCase/textMedianMaintainance.txt")
-case1 = medMaintain(testCase1)
-print(test(1, case1, 9335))
-
+# testCase1 = convertArray("testCase/textMedianMaintainance.txt")
+# case1 = medMaintain(testCase1)
+# print(test(1, case1, 9335))
+print(medMaintain(convertArray('problem_set/course2/median.txt')))
+# ans: 1213
 
