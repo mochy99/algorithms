@@ -2,11 +2,32 @@ def convertArray(fileName):
     # Read data from the file
     with open(fileName, 'r') as file:
         lines = file.readlines()
+    
+    # Convert data to a list of integers
+    data = [int(line.strip()) for line in lines]
 
-    # Convert data to a list of floats
-    data_list = [int(line.strip()) for line in lines]
+    return data
 
-    return data_list
+
+def convertSCC(fileName):
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+    data = []
+    for line in lines:
+        i,j = map(int, line.split())
+        data.append([i,j])
+    return data
+
+def convertDijkstra(fileName):
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+    data = {}
+    for line in lines:
+        parts = line.split('\t')
+        key = int(parts[0])
+        values = [tuple(map(int, pair.split(','))) for pair in parts[1:]]
+        data[key] = values
+    return data
 
 def convertStrArray(fileName):
     # Read the content of the file
@@ -129,5 +150,18 @@ def convertTsp(fileName):
             x, y = map(float, lines[i].split())
             data[i] = (x,y)
             setVertices.append(i)
+
+    return setVertices, data
+
+def convertHeuristicTsp(fileName):
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+
+    data, setVertices = {}, []
+    for i in range(len(lines)):
+        if i > 0:
+            index, x, y = map(float, lines[i].split())
+            data[i] = (x,y)
+            setVertices.append(int(index))
 
     return setVertices, data
