@@ -1,3 +1,4 @@
+from convertArray import convertDijkstra, convertUndirectedGraph
 graphA = {
     'A': [('B', 2), ('C', 4)],
     'B': [('C', 1), ('D', 4)],
@@ -14,7 +15,9 @@ graphB = {'A': [('B', 2), ('H', 2)],
  'H': [('G', 1), ('A', 2)]}
 #input: graph includes the path from start vertex to end vertex
 #output: 
-def dijkstra(graph, start, end):
+def dijkstra(fileName, end):
+    graph = convertDijkstra(fileName)
+    start = 1
     visited = [start]
     track = {start: 0}
     while end != visited[-1]:
@@ -31,15 +34,18 @@ def dijkstra(graph, start, end):
 
         visited.append(next_node)
         track[next_node] = minLen
-    print(track)
     return track[end]
 
-def test(order, input, start, end, output):
-    expect_output = dijkstra(input, start, end)
-    if expect_output == output:
-        return "Test " + str(order) + " passed"
-    else:
-        return "Test " + str(order) + " failed"
-print(test(1, graphA, "A", "B", 2))
-print(test(2, graphB, "A", "H", 2))
+# def test(order, input, start, end, output):
+#     expect_output = dijkstra(input, start, end)
+#     if expect_output == output:
+#         return "Test " + str(order) + " passed"
+#     else:
+#         return "Test " + str(order) + " failed"
+# print(test(1, graphA, "A", "B", 2))
+# print(test(2, graphB, "A", "H", 2))
+end = [7,37,59,82,99,115,133,165,188,197]
+for i in end:
+    print(dijkstra('problem_set/course2/dijkstra.txt', i))
 
+#ans: 2599,2610,2947,2052,2367,2399,2029,2442,2505,3068
