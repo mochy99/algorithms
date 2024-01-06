@@ -2,6 +2,7 @@ from convertArray import convertUndirectedGraph, convertSetEdges
 from heap import pairHeapify, pairExtractMin, pairDelete
 from merge_sort import parallelMergeSort
 from test import test
+import sys
 def prim(fileName):
     setVertices, setEdges = convertUndirectedGraph(fileName)
     mst, heap = set(), []
@@ -67,7 +68,28 @@ def union(leader, rank, fNode, sNode):
     else:
         leader[fNode] = sParent
 
-case1 = prim("testcase/mst.txt")
-case2 = krusal("testcase/mst.txt")
-print(test(1, case1, 14))
-print(test(2, case2, 14))
+def primWithoutHeap(fileName):
+    setVertices, setEdges = convertUndirectedGraph(fileName)
+    mst, cost = {1}, 0
+
+    while len(mst) < len(setVertices):
+        nextNode, minWeight = "None", sys.maxsize
+        for tail in mst:
+            for head, weight in setEdges[tail]:
+                if weight < minWeight and head not in mst:
+                    nextNode = head
+                    minWeight = weight
+        mst.add(nextNode)
+        cost += minWeight
+    return cost
+
+
+
+# case1 = prim("testcase/mst.txt")
+# case2 = krusal("testcase/mst.txt")
+# print(case2)
+# print(test(1, case1, 14))
+# print(test(2, case2, 14))
+print(primWithoutHeap('problem_set/course3/prob3week1.txt'))
+# print(primWithoutHeap('testCase/mst2.txt'))
+# print(prim('testCase/mst2.txt'))
