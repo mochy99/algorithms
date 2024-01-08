@@ -12,12 +12,12 @@ def tsp(fileName):
     prev = {}
     for size in range(2, n+1):
         subset[size] = []
-
+    
     # Helper function
     def Euclidean(i,j):
         xi, yi = data[i]
         xj, yj = data[j]
-        distance = math.sqrt((xj - xi)**2 + (yj - yi)**2)
+        distance = math.sqrt((xi - xj)**2 + (yi - yj)**2)
         return distance
     def toString(subSet):
         string = ''
@@ -41,8 +41,7 @@ def tsp(fileName):
         if len(current_subset) > 1: # Only need subset having size greater than 1
             if 1 in current_subset: # Only need subset including 1
                 size = len(current_subset)
-                subset[size].append(current_subset)
-                
+                subset[size].append(current_subset)           
     # Assign value for base case
     for curSet in  subset[2]:
         i,j = curSet
@@ -67,7 +66,7 @@ def tsp(fileName):
                     for k in curSet:
                         if k != 1 and k != j:
                             subSetNotj = toStringNotIncludedJ(curSet, j)
-                            curValue, path = prev[subSetNotj][k]
+                            curValue, path = prev[subSetNotj][k] 
                             if curValue + Euclidean(k,j) < curMin:
                                 curMin =  curValue + Euclidean(k,j)
                                 tem[toString(curSet)][j] = (curMin, path + str(j))
@@ -81,9 +80,9 @@ def tsp(fileName):
             result = newValue
             path = curPath + str(1) 
     
-    return result, path
+    return result
 
 
-print(tsp('problem_set/course4/tsp.txt')) #ans : (26314.87732555545, '591011141817212220161924231513128623741')
+print(tsp('problem_set/course4/tsp.txt')) #ans : (26442.73030895475)
 # print(tsp('testCase/tsp.txt'))
 
