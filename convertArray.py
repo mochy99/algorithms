@@ -25,7 +25,7 @@ def convertDijkstra(fileName):
     for line in lines:
         parts = line.split('\t')
         key = int(parts[0])
-        values = [tuple(map(int, pair.split(','))) for pair in parts[1:]]
+        values = [tuple(map(int, pair.split(','))) for pair in parts[1:] if pair != '\n' and pair != '']
         data[key] = values
     return data
 
@@ -115,6 +115,15 @@ def convertUndirectedGraph(fileName):
             setEdges.get(sPoint).append((fPoint,weight))
     return setVertices, setEdges
 
+def convertMinCutGraph(fileName):
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+    data = {}
+    for line in lines:
+        parts = list(map(int, line.split()))
+        data[parts[0]] = parts[1:]
+    return data
+
 # .txt -> ListNodeTree, P(a),  HeapP(a)
 from heap import pairHeapify 
 def convertHuffMan(fileName):
@@ -159,9 +168,23 @@ def convertHeuristicTsp(fileName):
 
     data, setVertices = {}, []
     for i in range(len(lines)):
-        if i > 0:
-            index, x, y = map(float, lines[i].split())
-            data[i] = (x,y)
-            setVertices.append(int(index))
+        node, x, y = map(float, lines[i].split())
+        data[int(node)] = (x,y)
+        setVertices.append(int(node))
 
     return setVertices, data
+
+def convertSat(fileName):
+    with open(fileName, 'r') as file:
+        lines = file.readlines()
+    
+    data, vars = [], set()
+    for line in lines:
+        first, second = map(int, line.split())
+        data.append((first, second))
+        first = first * -1 if first < 0 else first
+        second = second * -1 if second < 0 else second
+        vars.add(first)
+        vars.add(second)
+    
+    return vars, data
