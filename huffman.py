@@ -33,11 +33,11 @@ def huffMan(fileName):
     return Max, Min
         
 
-testCase1 = huffMan('testCase/huffman1.txt')
-print(test(1, testCase1, (3,2)))
-testCase3 = huffMan('testCase/huffman3.txt')
-print(test(3, testCase3, (6,3)))
-testCase2 = huffMan('testCase/huffman2.txt')
-print(test(2, testCase2, (5,2)))
+# testCase1 = huffMan('testCase/huffman1.txt')
+# print(test(1, testCase1, (3,2)))
+# testCase3 = huffMan('testCase/huffman3.txt')
+# print(test(3, testCase3, (6,3)))
+# testCase2 = huffMan('testCase/huffman2.txt')
+# print(test(2, testCase2, (5,2)))
 ans = (huffMan("problem_set/course3/problem_1_week_3.txt"))
 print(ans)
