@@ -38,3 +38,6 @@ def bellmanFord(fileName):
     
 
 print(bellmanFord("problem_set/course4/g1week1.txt"))
+print(bellmanFord("problem_set/course4/g2week1.txt"))
+print(bellmanFord("problem_set/course4/g3week1.txt"))
+print(bellmanFord("problem_set/course4/g4week1.txt"))
