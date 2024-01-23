@@ -42,7 +42,7 @@ def parallelSort(left_org, left_ind, right_org, right_ind):
     result_ind = []
     i, j = 0, 0
     while i < len(left_org) and j < len(right_org):
-        if left_ind[i] < right_ind[j]:
+        if left_ind[i] > right_ind[j] or (left_ind[i] == right_ind[j] and left_org[i][0] > right_org[j][0]):
             result_org.append(left_org[i])
             result_ind.append(left_ind[i])
             i += 1
