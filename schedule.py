@@ -6,7 +6,7 @@ def sumCompeletion (scheduleSort):
     accLength, sum = 0, 0
     for weight, length in scheduleSort:
         accLength += length
-        sum +=  accLength * weight
+        sum += accLength * weight
     return sum
 
 
@@ -33,11 +33,15 @@ def GreedyDiff(input):
     
     
 
-testCase1 = convertSchedule('testCase/schedule.txt')
-case1 = GreedyRatio(testCase1)
-case2 = GreedyDiff(testCase1)
-print(test(1, case1, 67247))
-print(test(2, case2, 68615))
+# testCase1 = convertSchedule('testCase/schedule.txt')
+# case2 = GreedyDiff(testCase1)
+# case1 = GreedyRatio(testCase1)
+
+# print(case1)
+# print(case2)
+prob = convertSchedule('problem_set/course3/prob1week1.txt')
+print(GreedyDiff(prob))
+print(GreedyRatio(prob))
 
 
 
