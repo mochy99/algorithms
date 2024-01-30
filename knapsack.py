@@ -19,5 +19,8 @@ def knapsack(fileName, budget):
 # test2 = knapsack('testCase/knapsack1.txt', 6)
 # print(test(2,test2, 8))
 
-test3 = knapsack('problem_set/course3/prob2week4.txt', 2000000)
-print(test3)
+# test3 = knapsack('problem_set/course3/prob2week4.txt', 2000000) #4243395
+# print(test3)
+
+test4 = knapsack('problem_set/course3/prob1week4.txt', 10000)
+print(test4)
