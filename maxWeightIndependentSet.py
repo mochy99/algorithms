@@ -24,3 +24,4 @@ def maxIS(fileName):
 testCase1=maxIS('testCase/IS1.txt')
 print(testCase1)
 
+print(maxIS('problem_set/course3/prob2week3.txt'))
