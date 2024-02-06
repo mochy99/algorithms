@@ -84,3 +84,4 @@ thread = threading.Thread(target=main)
 thread.start()
 
 
+#434821, 968, 459, 313, 211
